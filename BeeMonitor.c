@@ -39,24 +39,51 @@ void pausar(){
 
 int cadastrarAbelha(Abelha tipo_abelha[], int contadorAbelhas){
     int encontrado = 0;
+    int opcaoRegiao;
     for(int i = contadorAbelhas; i <= contadorAbelhas; i++){
         if(contadorAbelhas < MAX_ABELHAS){
             encontrado = 1;
             tipo_abelha[i].id = contadorAbelhas;
             printf("Nome Popular: ");
             scanf(" %40[^\n]",tipo_abelha[i].nomePopular);
-            printf("Nome Científico: ");
+            printf("Nome Cientifico: ");
             scanf(" %50[^\n]",tipo_abelha[i].nomeCientifico);
-            printf("Região: ");
-            scanf(" %30[^\n]",tipo_abelha[i].regiao);
-            printf("Produção Média de Mel (kg/mês): ");
+            printf("Escolha a Região:\n");
+            printf("1 - Norte\n");
+            printf("2 - Nordeste\n");
+            printf("3 - Centro-Oeste\n");
+            printf("4 - Sudeste\n");
+            printf("5 - Sul\n");
+            printf("Opcao: ");
+            scanf("%d", &opcaoRegiao);
+            switch(opcaoRegiao){
+                case 1:
+                    strcpy(tipo_abelha[i].regiao, "Norte");
+                    break;
+                case 2:
+                    strcpy(tipo_abelha[i].regiao, "Nordeste");
+                    break;
+                case 3:
+                    strcpy(tipo_abelha[i].regiao, "Centro-Oeste");
+                    break;
+                case 4:
+                    strcpy(tipo_abelha[i].regiao, "Sudeste");
+                    break;
+                case 5:
+                    strcpy(tipo_abelha[i].regiao, "Sul");
+                    break;
+                default:
+                    printf("Regiao invalida! Definindo como 'Desconhecida'.\n");
+                    strcpy(tipo_abelha[i].regiao, "Desconhecida");
+            }
+            printf("Producao Media de Mel (kg/mes): ");
             scanf("%f", &tipo_abelha[i].producaoMel);
             system("clear || cls");
             printf("\nAbelha cadastrada com sucesso!\n");
             return encontrado;
         } else {
             system("clear || cls");
-            printf("Limite máximo de abelhas atingido!\n");
+            printf("Limite maximo de abelhas atingido!\n");
         }
     }    
     return encontrado;
@@ -71,9 +98,9 @@ void listarAbelhas(Abelha tipo_abelha[], int contadorAbelhas){
     for(int i = 0; i < contadorAbelhas; i++){
         printf("ID: %d\n", tipo_abelha[i].id);
         printf("Nome Popular: %s\n", tipo_abelha[i].nomePopular);
-        printf("Nome Científico: %s\n", tipo_abelha[i].nomeCientifico);
-        printf("Região: %s\n", tipo_abelha[i].regiao);
-        printf("Produção Média de Mel (kg/mês): %.2f\n", tipo_abelha[i].producaoMel);
+        printf("Nome Cientifico: %s\n", tipo_abelha[i].nomeCientifico);
+        printf("Regiao: %s\n", tipo_abelha[i].regiao);
+        printf("Producao Media de Mel (kg/mes): %.2f\n", tipo_abelha[i].producaoMel);
         printf("-------------------------\n");
     }
 }
@@ -89,15 +116,15 @@ void buscarPorNomePopular(Abelha tipo_abelha[], int contadorAbelhas){
             printf("Abelha Encontrada:\n");
             printf("ID: %d\n", tipo_abelha[i].id);
             printf("Nome Popular: %s\n", tipo_abelha[i].nomePopular);
-            printf("Nome Científico: %s\n", tipo_abelha[i].nomeCientifico);
-            printf("Região: %s\n", tipo_abelha[i].regiao);
-            printf("Produção Média de Mel (kg/mês): %.2f\n", tipo_abelha[i].producaoMel);
+            printf("Nome Cientifico: %s\n", tipo_abelha[i].nomeCientifico);
+            printf("Regiao: %s\n", tipo_abelha[i].regiao);
+            printf("Producao Media de Mel (kg/mes): %.2f\n", tipo_abelha[i].producaoMel);
             encontrado = 1;
             break;
         }
     }
     if(encontrado != 1){
-        printf("Abelha com o Nome Popular '%s' não encontrada.\n", nomeBusca);
+        printf("Abelha com o Nome Popular '%s' nao encontrada.\n", nomeBusca);
     }
 }
 
@@ -111,11 +138,11 @@ void alterarDadosAbelha(Abelha tipo_abelha[], int contadorAbelhas){
             printf("Alterando dados da Abelha ID %d:\n", idBusca);
             printf("Novo Nome Popular: ");
             scanf("%40s", tipo_abelha[i].nomePopular);
-            printf("Novo Nome Científico: ");
+            printf("Novo Nome Cientifico: ");
             scanf("%50s", tipo_abelha[i].nomeCientifico);
-            printf("Nova Região: ");
+            printf("Nova Regiao: ");
             scanf("%30s", tipo_abelha[i].regiao);
-            printf("Nova Produção Média de Mel (kg/mês): ");
+            printf("Nova Producao Media de Mel (kg/mes): ");
             scanf("%f", &tipo_abelha[i].producaoMel);
             system("clear || cls");
             printf("\nDados da Abelha atualizados com sucesso!\n");
@@ -124,7 +151,7 @@ void alterarDadosAbelha(Abelha tipo_abelha[], int contadorAbelhas){
         }
     }
     if(encontrado != 1){
-        printf("Abelha com o ID '%d' não encontrada.\n", idBusca);
+        printf("Abelha com o ID '%d' nao encontrada.\n", idBusca);
     }
 }
 
@@ -149,7 +176,7 @@ int removerAbelha(Abelha tipo_abelha[], int contadorAbelhas){
         }
     }
     if(encontrado != 1){
-        printf("Abelha com o ID '%d' não encontrada.\n", idBusca);
+        printf("Abelha com o ID '%d' nao encontrada.\n", idBusca);
     }
     return contadorAbelhas;
 }
@@ -158,11 +185,11 @@ int removerAbelha(Abelha tipo_abelha[], int contadorAbelhas){
 
 int cadastrarSensores(Sensor tipo_sensor[], int contadorSensores, Abelha tipo_abelha[], int contadorAbelhas){
     if(contadorAbelhas == 0){
-        printf("Nenhuma abelha disponível para associar. Cadastre uma abelha primeiro.\n");
+        printf("Nenhuma abelha disponivel para associar. Cadastre uma abelha primeiro.\n");
         return contadorSensores;
     }
     if(contadorSensores >= MAX_SENSORES){
-        printf("Limite máximo de sensores atingido!\n");
+        printf("Limite maximo de sensores atingido!\n");
         return contadorSensores;
     }
 
@@ -177,13 +204,35 @@ int cadastrarSensores(Sensor tipo_sensor[], int contadorSensores, Abelha tipo_ab
         }
     }
     if(encontrado == 0){
-        printf("Abelha com o ID '%d' não encontrada. Não foi possível cadastrar o sensor.\n", idAbelhaBusca);
+        printf("Abelha com o ID '%d' nao encontrada. Nao foi possivel cadastrar o sensor.\n", idAbelhaBusca);
         return contadorSensores;
     }
 
     tipo_sensor[contadorSensores].id = contadorSensores;
-    printf("Tipo do Sensor(Temperatura, Umidade e Luminosidade): ");
-    scanf("%30s", tipo_sensor[contadorSensores].tipo);
+
+    int opcaoTipo;
+    printf("Escolha o tipo do Sensor:\n");
+    printf("1 - Temperatura\n");
+    printf("2 - Umidade\n");
+    printf("3 - Luminosidade\n");
+    printf("Opcao: ");
+    scanf("%d", &opcaoTipo);
+
+    switch(opcaoTipo){
+        case 1:
+            strcpy(tipo_sensor[contadorSensores].tipo, "Temperatura");
+            break;
+        case 2:
+            strcpy(tipo_sensor[contadorSensores].tipo, "Umidade");
+            break;
+        case 3:
+            strcpy(tipo_sensor[contadorSensores].tipo, "Luminosidade");
+            break;
+        default:
+            printf("Tipo invalido! Sensor nao cadastrado.\n");
+            return contadorSensores;
+    }
+
     printf("Valor inicial: ");
     scanf("%f", &tipo_sensor[contadorSensores].valor);
     tipo_sensor[contadorSensores].idAbelha = idAbelhaBusca;
@@ -213,7 +262,7 @@ void buscarPorIdAbelha(Sensor tipo_sensor[], int contadorSensores){
     int encontrado = 0;
     printf("Digite o ID da Abelha para buscar sensores associados: ");
     scanf("%d", &idAbelhaBusca);
-    printf("Sensores associados à Abelha ID %d:\n", idAbelhaBusca);
+    printf("Sensores associados a Abelha ID %d:\n", idAbelhaBusca);
     for(int i = 0; i < contadorSensores; i++){
         if(tipo_sensor[i].idAbelha == idAbelhaBusca){
             printf("ID do Sensor: %d\n", tipo_sensor[i].id);
@@ -247,11 +296,11 @@ void alterarDadosSensores(Sensor tipo_sensor[], int contadorSensores){
         }
     }
     if(encontrado != 1){
-        printf("Sensor com o ID '%d' não encontrado.\n", idBusca);
+        printf("Sensor com o ID '%d' nao encontrado.\n", idBusca);
     }
 }
 
-int removerSensor(Sensor tipo_sensor[], int contadorSensores){
+int removerSensores(Sensor tipo_sensor[], int contadorSensores){
     int idBusca;
     int encontrado = 0;
     printf("Digite o ID do Sensor para remover: ");
@@ -272,7 +321,7 @@ int removerSensor(Sensor tipo_sensor[], int contadorSensores){
         }
     }
     if(encontrado != 1){
-        printf("Sensor com o ID '%d' não encontrado.\n", idBusca);
+        printf("Sensor com o ID '%d' nao encontrado.\n", idBusca);
     }
     return contadorSensores;
 }
@@ -281,7 +330,7 @@ int removerSensor(Sensor tipo_sensor[], int contadorSensores){
 
 void relatorioProducaoMel(Abelha tipo_abelha[], int contadorAbelhas){
     if(contadorAbelhas == 0){
-        printf("Nenhuma abelha cadastrada para gerar relatório.\n");
+        printf("Nenhuma abelha cadastrada para gerar relatorio.\n");
         return;
     }
     float somaProducao = 0.0;
@@ -289,12 +338,12 @@ void relatorioProducaoMel(Abelha tipo_abelha[], int contadorAbelhas){
         somaProducao += tipo_abelha[i].producaoMel;
     }
     float mediaProducao = somaProducao / contadorAbelhas;
-    printf("Média Geral de Produção de Mel: %.2f kg/mês\n", mediaProducao);
+    printf("Media Geral de Producao de Mel: %.2f kg/mes\n", mediaProducao);
 }
 
 void relatorioMediaTemperatura(Sensor tipo_sensor[], int contadorSensores){
     if(contadorSensores == 0){
-        printf("Nenhum sensor cadastrado para gerar relatório.\n");
+        printf("Nenhum sensor cadastrado para gerar relatorio.\n");
         return;
     }
     float somaTemperatura = 0.0;
@@ -306,12 +355,14 @@ void relatorioMediaTemperatura(Sensor tipo_sensor[], int contadorSensores){
         }
     }
     if(contadorTemperatura == 0){
-        printf("Nenhum sensor de temperatura encontrado para gerar relatório.\n");
+        printf("Nenhum sensor de temperatura encontrado para gerar relatorio.\n");
         return;
     }
     float mediaTemperatura = somaTemperatura / contadorTemperatura;
-    printf("Média de Temperatura dos Sensores: %.2f\n", mediaTemperatura);
+    printf("Media de Temperatura dos Sensores: %.2f\n", mediaTemperatura);
 }
+
+// void relatorioQuantidadeAbelhasPorRegiao(Abelha tipo_abelha[], int contadorAbelhas){
 
 int main(){
     system("clear || cls");
@@ -321,16 +372,19 @@ int main(){
     int contadorAbelhas = 0;
     int contadorSensores = 0;
 
+    // Variável para opções do menu
     int opcao;
+
+    // Variável para verificar se incrementa o contador de abelhas
     int encontradoCadastrar;
 
     do{
         printf("===== SISTEMA BEE MONITOR =====\n");
         printf("1. Gerenciar Abelhas\n");
         printf("2. Gerenciar Sensores\n");
-        printf("3. Relatórios\n");
+        printf("3. Relatorios\n");
         printf("4. Sair\n");
-        printf("Escolha uma opção: ");
+        printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
 
         system("clear || cls");
@@ -345,7 +399,7 @@ int main(){
                     printf("9. Alterar Dados\n");
                     printf("10. Remover Abelha\n");
                     printf("11. Voltar ao Menu Principal\n");
-                    printf("Escolha uma opção: ");
+                    printf("Escolha uma opcao: ");
                     scanf("%d", &opcao);
 
                     system("clear || cls");
@@ -383,7 +437,7 @@ int main(){
                             // Voltar ao menu principal
                             break;
                         default:
-                            printf("Opção inválida! Tente novamente.\n");        
+                            printf("Opcao invalida! Tente novamente.\n");        
                     }
                 }while(opcao != 11);
                 break;    
@@ -396,7 +450,7 @@ int main(){
                     printf("9. Alterar leitura\n");
                     printf("10. Remover Sensor\n");
                     printf("11. Voltar ao Menu Principal\n");
-                    printf("Escolha uma opção: ");
+                    printf("Escolha uma opcao: ");
                     scanf("%d", &opcao);
 
                     system("clear || cls");
@@ -423,7 +477,7 @@ int main(){
                             system("clear || cls");
                             break;
                         case 10:
-                            contadorSensores = removerSensor(tipo_sensor, contadorSensores);
+                            contadorSensores = removerSensores(tipo_sensor, contadorSensores);
                             pausar();
                             system("clear || cls");
                             break;
@@ -431,18 +485,18 @@ int main(){
                             // Voltar ao menu principal
                             break;
                         default:
-                            printf("Opção inválida! Tente novamente.\n");        
+                            printf("Opcao invalida! Tente novamente.\n");        
                     }
                 }while(opcao != 11);
                 break;
             case 3:
                 do{
-                    printf("===== SUBMENU 3 - RELATÓRIOS =====\n");
-                    printf("4. Média Geral de Produção de Mel\n");
-                    printf("5. Média de Temperatura dos Sensores\n");
-                    printf("6. Quantidade de Abelhas por Região\n");
+                    printf("===== SUBMENU 3 - RELATORIOS =====\n");
+                    printf("4. Media Geral de Producao de Mel\n");
+                    printf("5. Media de Temperatura dos Sensores\n");
+                    printf("6. Quantidade de Abelhas por Regiao\n");
                     printf("7. Voltar ao Menu Principal\n");
-                    printf("Escolha uma opção: ");
+                    printf("Escolha uma opcao: ");
                     scanf("%d", &opcao);
 
                     system("clear || cls");
@@ -459,14 +513,13 @@ int main(){
                             system("clear || cls");
                             break;
                         case 6:
-                            // Lógica para relatório de quantidade de abelhas por região
                             //relatorioQuantidadeAbelhasPorRegiao(tipo_abelha, contadorAbelhas);
                             break;
                         case 7:
                             // Voltar ao menu principal
                             break;
                         default:
-                            printf("Opção inválida! Tente novamente.\n");        
+                            printf("Opcao invalida! Tente novamente.\n");        
                     }
                 }while(opcao != 7);
                 break;
@@ -474,7 +527,7 @@ int main(){
                 printf("SISTEMA ENCERRADO!\n");
                 break;
             default:
-                printf("Opção inválida! Tente novamente.\n");
+                printf("Opcao invalida! Tente novamente.\n");
         }
     }while(opcao != 4);
     return 0;

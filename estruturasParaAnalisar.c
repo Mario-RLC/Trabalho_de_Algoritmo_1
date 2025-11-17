@@ -16,3 +16,5 @@ if(scanf("%d", &opcao) != 1){
                         while(getchar() != '\n'); // limpar buffer de entrada
                         opcao = -1; // definir uma opção inválida
                     }
+
+                    
