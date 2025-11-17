@@ -37,25 +37,29 @@ void pausar(){
 
 //Funções para Abelhas
 
-void cadastrarAbelha(Abelha tipo_abelha[], int contadorAbelhas){
+int cadastrarAbelha(Abelha tipo_abelha[], int contadorAbelhas){
+    int encontrado = 0;
     for(int i = contadorAbelhas; i <= contadorAbelhas; i++){
         if(contadorAbelhas < MAX_ABELHAS){
+            encontrado = 1;
             tipo_abelha[i].id = contadorAbelhas;
             printf("Nome Popular: ");
-            scanf("%40s", tipo_abelha[i].nomePopular);
+            scanf(" %40[^\n]",tipo_abelha[i].nomePopular);
             printf("Nome Científico: ");
-            scanf("%50s", tipo_abelha[i].nomeCientifico);
+            scanf(" %50[^\n]",tipo_abelha[i].nomeCientifico);
             printf("Região: ");
-            scanf("%30s", tipo_abelha[i].regiao);
+            scanf(" %30[^\n]",tipo_abelha[i].regiao);
             printf("Produção Média de Mel (kg/mês): ");
             scanf("%f", &tipo_abelha[i].producaoMel);
             system("clear || cls");
             printf("\nAbelha cadastrada com sucesso!\n");
+            return encontrado;
         } else {
             system("clear || cls");
             printf("Limite máximo de abelhas atingido!\n");
         }
     }    
+    return encontrado;
 }
 
 void listarAbelhas(Abelha tipo_abelha[], int contadorAbelhas){
@@ -178,7 +182,7 @@ int cadastrarSensores(Sensor tipo_sensor[], int contadorSensores, Abelha tipo_ab
     }
 
     tipo_sensor[contadorSensores].id = contadorSensores;
-    printf("Tipo do Sensor: ");
+    printf("Tipo do Sensor(Temperatura, Umidade e Luminosidade): ");
     scanf("%30s", tipo_sensor[contadorSensores].tipo);
     printf("Valor inicial: ");
     scanf("%f", &tipo_sensor[contadorSensores].valor);
@@ -204,6 +208,111 @@ void listarSensores(Sensor tipo_sensor[], int contadorSensores){
     }
 }
 
+void buscarPorIdAbelha(Sensor tipo_sensor[], int contadorSensores){
+    int idAbelhaBusca;
+    int encontrado = 0;
+    printf("Digite o ID da Abelha para buscar sensores associados: ");
+    scanf("%d", &idAbelhaBusca);
+    printf("Sensores associados à Abelha ID %d:\n", idAbelhaBusca);
+    for(int i = 0; i < contadorSensores; i++){
+        if(tipo_sensor[i].idAbelha == idAbelhaBusca){
+            printf("ID do Sensor: %d\n", tipo_sensor[i].id);
+            printf("Tipo do Sensor: %s\n", tipo_sensor[i].tipo);
+            printf("Valor Atual: %.2f\n", tipo_sensor[i].valor);
+            printf("-------------------------\n");
+            encontrado = 1;
+        }
+    }
+    if(encontrado != 1){
+        printf("Nenhum sensor encontrado para a Abelha com ID '%d'.\n", idAbelhaBusca);
+    }
+}
+
+void alterarDadosSensores(Sensor tipo_sensor[], int contadorSensores){
+    int idBusca;
+    int encontrado = 0;
+    printf("Digite o ID do Sensor para alterar dados: ");
+    scanf("%d", &idBusca);
+    for(int i = 0; i < contadorSensores; i++){
+        if(tipo_sensor[i].id == idBusca){
+            printf("Alterando dados do Sensor ID %d:\n", idBusca);
+            printf("Novo Tipo do Sensor(Temperatura, Umidade e Luminosidade): ");
+            scanf("%30s", tipo_sensor[i].tipo);
+            printf("Novo Valor Atual: ");
+            scanf("%f", &tipo_sensor[i].valor);
+            system("clear || cls");
+            printf("\nDados do Sensor atualizados com sucesso!\n");
+            encontrado = 1;
+            break;
+        }
+    }
+    if(encontrado != 1){
+        printf("Sensor com o ID '%d' não encontrado.\n", idBusca);
+    }
+}
+
+int removerSensor(Sensor tipo_sensor[], int contadorSensores){
+    int idBusca;
+    int encontrado = 0;
+    printf("Digite o ID do Sensor para remover: ");
+    scanf("%d", &idBusca);
+    for(int i = 0; i < contadorSensores; i++){
+        if(tipo_sensor[i].id == idBusca){
+            for(int j = i; j < contadorSensores - 1; j++){
+                tipo_sensor[j] = tipo_sensor[j + 1];
+            }
+            contadorSensores--;
+            for(int k = 0; k < contadorSensores; k++){
+                tipo_sensor[k].id = k;
+            }
+            system("clear || cls");
+            printf("\nSensor removido com sucesso!\n");
+            encontrado = 1;
+            break;
+        }
+    }
+    if(encontrado != 1){
+        printf("Sensor com o ID '%d' não encontrado.\n", idBusca);
+    }
+    return contadorSensores;
+}
+
+//Funções para Relatórios
+
+void relatorioProducaoMel(Abelha tipo_abelha[], int contadorAbelhas){
+    if(contadorAbelhas == 0){
+        printf("Nenhuma abelha cadastrada para gerar relatório.\n");
+        return;
+    }
+    float somaProducao = 0.0;
+    for(int i = 0; i < contadorAbelhas; i++){
+        somaProducao += tipo_abelha[i].producaoMel;
+    }
+    float mediaProducao = somaProducao / contadorAbelhas;
+    printf("Média Geral de Produção de Mel: %.2f kg/mês\n", mediaProducao);
+}
+
+void relatorioMediaTemperatura(Sensor tipo_sensor[], int contadorSensores){
+    if(contadorSensores == 0){
+        printf("Nenhum sensor cadastrado para gerar relatório.\n");
+        return;
+    }
+    float somaTemperatura = 0.0;
+    int contadorTemperatura = 0;
+    for(int i = 0; i < contadorSensores; i++){
+        if(strcmp(tipo_sensor[i].tipo, "Temperatura") == 0){
+            somaTemperatura += tipo_sensor[i].valor;
+            contadorTemperatura++;
+        }
+    }
+    if(contadorTemperatura == 0){
+        printf("Nenhum sensor de temperatura encontrado para gerar relatório.\n");
+        return;
+    }
+    float mediaTemperatura = somaTemperatura / contadorTemperatura;
+    printf("Média de Temperatura dos Sensores: %.2f\n", mediaTemperatura);
+}
+
 int main(){
     system("clear || cls");
 
@@ -213,6 +322,7 @@ int main(){
     int contadorSensores = 0;
 
     int opcao;
+    int encontradoCadastrar;
 
     do{
         printf("===== SISTEMA BEE MONITOR =====\n");
@@ -242,33 +352,30 @@ int main(){
 
                     switch(opcao){
                         case 6:
-                            cadastrarAbelha(tipo_abelha, contadorAbelhas);
-                            contadorAbelhas++;
-                            printf("Pressione ENTER para continuar...");
+                            encontradoCadastrar = cadastrarAbelha(tipo_abelha, contadorAbelhas);
+                            if(encontradoCadastrar == 1){
+                                contadorAbelhas++;
+                            }
                             pausar();
                             system("clear || cls");
                             break;
                         case 7:
                             listarAbelhas(tipo_abelha, contadorAbelhas);
-                            printf("Pressione ENTER para continuar...");
                             pausar();
                             system("clear || cls");
                             break;
                         case 8:
                             buscarPorNomePopular(tipo_abelha, contadorAbelhas);
-                            printf("Pressione ENTER para continuar...");
                             pausar();
                             system("clear || cls");
                             break;
                         case 9:
                             alterarDadosAbelha(tipo_abelha, contadorAbelhas);
-                            printf("Pressione ENTER para continuar...");
                             pausar();
                             system("clear || cls");
                             break;
                         case 10:
                             contadorAbelhas = removerAbelha(tipo_abelha, contadorAbelhas);
-                            printf("Pressione ENTER para continuar...");
                             pausar();
                             system("clear || cls");
                             break;
@@ -297,34 +404,26 @@ int main(){
                     switch(opcao){
                         case 6:
                             contadorSensores = cadastrarSensores(tipo_sensor, contadorSensores, tipo_abelha, contadorAbelhas);
-                            printf("Pressione ENTER para continuar...");
                             pausar();
                             system("clear || cls");
                             break;
                         case 7:
                             listarSensores(tipo_sensor, contadorSensores);
-                            printf("Pressione ENTER para continuar...");
                             pausar();
                             system("clear || cls");
                             break;
                         case 8:
-                            // Lógica para buscar sensor por tipo de id da Abelha
-                            //buscarPorIdAbelha(tipo_sensor, contadorSensores);
-                            printf("Pressione ENTER para continuar...");
+                            buscarPorIdAbelha(tipo_sensor, contadorSensores);
                             pausar();
                             system("clear || cls");
                             break;
                         case 9:
-                            // Lógica para alterar dados
-                            //alterarDadosSensor(tipo_sensor, contadorSensores);
-                            printf("Pressione ENTER para continuar...");
+                            alterarDadosSensores(tipo_sensor, contadorSensores);
                             pausar();
                             system("clear || cls");
                             break;
                         case 10:
-                            // Lógica para remover sensor
-                            //removerSensor(tipo_sensor, &contadorSensores);
-                            printf("Pressione ENTER para continuar...");
+                            contadorSensores = removerSensor(tipo_sensor, contadorSensores);
                             pausar();
                             system("clear || cls");
                             break;
@@ -350,12 +449,14 @@ int main(){
 
                     switch(opcao){
                         case 4:
-                            // Lógica para relatório de produção de mel
-                            //relatorioProducaoMel(tipo_abelha, contadorAbelhas);
+                            relatorioProducaoMel(tipo_abelha, contadorAbelhas);
+                            pausar();
+                            system("clear || cls");
                             break;
                         case 5:
-                            // Lógica para relatório de média de temperatura
-                            //relatorioMediaTemperatura(tipo_sensor, contadorSensores);
+                            relatorioMediaTemperatura(tipo_sensor, contadorSensores);
+                            pausar();
+                            system("clear || cls");
                             break;
                         case 6:
                             // Lógica para relatório de quantidade de abelhas por região
