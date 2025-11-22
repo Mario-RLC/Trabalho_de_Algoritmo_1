@@ -39,66 +39,66 @@ void pausar(){
 int cadastrarAbelha(Abelha tipo_abelha[], int contadorAbelhas){
     int encontrado = 0;
     int opcaoRegiao;
-    int i;
-
-    for(i = contadorAbelhas; i <= contadorAbelhas; i++){
-        if(contadorAbelhas < MAX_ABELHAS){
-            encontrado = 1;
-            tipo_abelha[i].id = contadorAbelhas;
-            printf("Nome Popular: ");
-            scanf(" %39[^\n]",tipo_abelha[i].nomePopular);
-            printf("Nome Cientifico: ");
-            scanf(" %49[^\n]",tipo_abelha[i].nomeCientifico);
-            do{
-                printf("Escolha a Regiao:\n");
-                printf("1 - Norte\n");
-                printf("2 - Nordeste\n");
-                printf("3 - Centro-Oeste\n");
-                printf("4 - Sudeste\n");
-                printf("5 - Sul\n");
-                printf("Opcao: ");
-                if(scanf("%d", &opcaoRegiao) != 1){
-                    limparBuffer(); 
-                    opcaoRegiao = -1;
-                }
-                switch(opcaoRegiao){
-                    case 1:
-                        strcpy(tipo_abelha[i].regiao, "Norte");
-                        break;
-                    case 2:
-                        strcpy(tipo_abelha[i].regiao, "Nordeste");
-                        break;
-                    case 3:
-                        strcpy(tipo_abelha[i].regiao, "Centro-Oeste");
-                        break;
-                    case 4:
-                        strcpy(tipo_abelha[i].regiao, "Sudeste");
-                        break;
-                    case 5:
-                        strcpy(tipo_abelha[i].regiao, "Sul");
-                        break;
-                    default:
-                        system("clear || cls");
-                        printf("Regiao invalida! Digite Novamente!\n");
-                }
-            }while(opcaoRegiao < 1 || opcaoRegiao > 5);
-            do{
-                printf("Producao Media de Mel (kg/mes): ");
-                if(scanf("%f", &tipo_abelha[i].producaoMel) != 1){
-                    limparBuffer(); 
-                    tipo_abelha[i].producaoMel = -1;
-                }
+    
+    if(contadorAbelhas < MAX_ABELHAS){
+        encontrado = 1;
+        tipo_abelha[contadorAbelhas].id = contadorAbelhas;
+        printf("Nome Popular: ");
+        scanf(" %39[^\n]",tipo_abelha[contadorAbelhas].nomePopular);
+        printf("Nome Cientifico: ");
+        scanf(" %49[^\n]",tipo_abelha[contadorAbelhas].nomeCientifico);
+        do{
+            printf("Escolha a Regiao:\n");
+            printf("1 - Norte\n");
+            printf("2 - Nordeste\n");
+            printf("3 - Centro-Oeste\n");
+            printf("4 - Sudeste\n");
+            printf("5 - Sul\n");
+            printf("Opcao: ");
+            if(scanf("%d", &opcaoRegiao) != 1){
+                limparBuffer(); 
+                opcaoRegiao = -1;
+            }
+            switch(opcaoRegiao){
+                case 1:
+                    strcpy(tipo_abelha[contadorAbelhas].regiao, "Norte");
+                    break;
+                case 2:
+                    strcpy(tipo_abelha[contadorAbelhas].regiao, "Nordeste");
+                    break;
+                case 3:
+                    strcpy(tipo_abelha[contadorAbelhas].regiao, "Centro-Oeste");
+                    break;
+                case 4:
+                    strcpy(tipo_abelha[contadorAbelhas].regiao, "Sudeste");
+                    break;
+                case 5:
+                    strcpy(tipo_abelha[contadorAbelhas].regiao, "Sul");
+                    break;
+                default:
+                    system("clear || cls");
+                    printf("Regiao invalida! Digite Novamente!\n");
+            }
+        }while(opcaoRegiao < 1 || opcaoRegiao > 5);
+        do{
+            printf("Producao Media de Mel (kg/mes): ");
+            if(scanf("%f", &tipo_abelha[contadorAbelhas].producaoMel) != 1){
+                limparBuffer(); 
+                tipo_abelha[contadorAbelhas].producaoMel = -1;
                 system("clear || cls");
                 printf("Valor invalido! Digite novamente!\n");
-            }while(tipo_abelha[i].producaoMel < 0);
-            system("clear || cls");
-            printf("\nAbelha cadastrada com sucesso!\n");
-            return encontrado;
-        } else {
-            system("clear || cls");
-            printf("Limite maximo de abelhas atingido!\n");
-        }
-    }    
+            }else if(tipo_abelha[contadorAbelhas].producaoMel < 0){
+                system("clear || cls");
+                printf("Valor invalido! Digite novamente!\n");
+            }    
+        }while(tipo_abelha[contadorAbelhas].producaoMel < 0);
+        system("clear || cls");
+        printf("\nAbelha cadastrada com sucesso!\n");
+        return encontrado;
+    } else {
+        system("clear || cls");
+        printf("Limite maximo de abelhas atingido!\n");
+    }   
     return encontrado;
 }
 
@@ -224,9 +224,12 @@ void alterarDadosAbelha(Abelha tipo_abelha[], int contadorAbelhas){
                 if(scanf("%f", &tipo_abelha[i].producaoMel) != 1){
                     limparBuffer(); 
                     tipo_abelha[i].producaoMel = -1;
+                    system("clear || cls");
+                    printf("Valor invalido! Digite novamente!\n");
+                }else if(tipo_abelha[i].producaoMel < 0){
+                    system("clear || cls");
+                    printf("Valor invalido! Digite novamente!\n");
                 }
-                system("clear || cls");
-                printf("Valor invalido! Digite novamente!\n");
             }while(tipo_abelha[i].producaoMel < 0);
             system("clear || cls");
             printf("\nDados da Abelha atualizados com sucesso!\n");
