@@ -287,20 +287,21 @@ int removerSensoresPorAbelha(Sensor tipo_sensor[], int contadorSensores, int idR
 
     while(i < contadorSensores){
         if(tipo_sensor[i].idAbelha == idRemovida){
-            /* remove sensor i */
+            //Vai remover o sensor da posição
             for(j = i; j < contadorSensores - 1; j++){
                 tipo_sensor[j] = tipo_sensor[j + 1];
             }
             contadorSensores--;
-            /* nao incrementa i para verificar o novo elemento que chegou em i */
+            //Nao incrementa i para verificar o novo elemento que pegou a posição
         } else {
             if(tipo_sensor[i].idAbelha > idRemovida){
-                tipo_sensor[i].idAbelha--; /* acompanha a remocao da abelha */
+                //Vai acompanhar a mudança do id da abelha
+                tipo_sensor[i].idAbelha--; 
             }
             i++;
         }
     }
-    /* renumera ids dos sensores */
+    //Renumera os ids dos sensores
     for(k = 0; k < contadorSensores; k++){
         tipo_sensor[k].id = k;
     }
@@ -313,7 +314,7 @@ int removerAbelhaPorId(Abelha tipo_abelha[], int contadorAbelhas, int idRemovida
 
     for(i = 0; i < contadorAbelhas; i++){
         if(tipo_abelha[i].id == idRemovida){
-            /* remove abelha i */
+            //Vai remover a abelha da posição
             for(j = i; j < contadorAbelhas - 1; j++){
                 tipo_abelha[j] = tipo_abelha[j + 1];
             }
@@ -323,7 +324,7 @@ int removerAbelhaPorId(Abelha tipo_abelha[], int contadorAbelhas, int idRemovida
         }
     }
     if(encontrado == 1){
-        /* renumera ids das abelhas */
+        //Renumera os ids das abelhas
         for(k = 0; k < contadorAbelhas; k++){
             tipo_abelha[k].id = k;
         }
@@ -341,6 +342,8 @@ int removerAbelhaPorId(Abelha tipo_abelha[], int contadorAbelhas, int idRemovida
 int cadastrarSensores(Sensor tipo_sensor[], int contadorSensores, Abelha tipo_abelha[], int contadorAbelhas){
     int encontrado = 0;
     int i;
+    int idAbelhaBusca;
+    int opcaoTipo;
 
     if(contadorAbelhas == 0){
         printf("Nenhuma abelha disponivel para associar. Cadastre uma abelha primeiro.\n");
@@ -350,8 +353,6 @@ int cadastrarSensores(Sensor tipo_sensor[], int contadorSensores, Abelha tipo_ab
         printf("Limite maximo de sensores atingido!\n");
         return encontrado;
     }
-
-    int idAbelhaBusca;
 
     do{
         printf("Digite o ID da Abelha para associar ao sensor: ");
@@ -377,8 +378,6 @@ int cadastrarSensores(Sensor tipo_sensor[], int contadorSensores, Abelha tipo_ab
     }
 
     tipo_sensor[contadorSensores].id = contadorSensores;
-
-    int opcaoTipo;
 
     do{
         printf("Escolha o tipo do Sensor:\n");
@@ -599,30 +598,31 @@ int removerSensores(Sensor tipo_sensor[], int contadorSensores){
 
 void relatorioProducaoMel(Abelha tipo_abelha[], int contadorAbelhas){
     int i;
+    float somaProducao = 0.0;
+    float mediaProducao;
 
     if(contadorAbelhas == 0){
         printf("Nenhuma abelha cadastrada para gerar relatorio.\n");
         return;
     }
-    float somaProducao = 0.0;
+
     for(i = 0; i < contadorAbelhas; i++){
         somaProducao += tipo_abelha[i].producaoMel;
     }
-    float mediaProducao = somaProducao / contadorAbelhas;
+    mediaProducao = somaProducao / contadorAbelhas;
     printf("Media Geral de Producao de Mel: %.2f kg/mes\n", mediaProducao);
 }
 
 void relatorioMediaTemperatura(Sensor tipo_sensor[], int contadorSensores){
     int i;
+    float somaTemperatura = 0.0;
+    int contadorTemperatura = 0;
+    float mediaTemperatura;
 
     if(contadorSensores == 0){
         printf("Nenhum sensor cadastrado para gerar relatorio.\n");
         return;
     }
-
-    float somaTemperatura = 0.0;
-    int contadorTemperatura = 0;
-    float mediaTemperatura;
 
     for(i = 0; i < contadorSensores; i++){
         if(strcmp(tipo_sensor[i].tipo, "Temperatura") == 0){
@@ -639,7 +639,7 @@ void relatorioMediaTemperatura(Sensor tipo_sensor[], int contadorSensores){
 }
 
 void relatorioQuantidadeAbelhasPorRegiao(Abelha tipo_abelha[], int contadorAbelhas){
-    int contadorRegioes[5] = {0}; 
+    int contadorRegioes[5] = {0};
     int i;
 
     for(i = 0; i < contadorAbelhas; i++){
