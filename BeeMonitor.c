@@ -3,6 +3,9 @@
 #include <string.h>
 #include <ctype.h>
 
+#define YELLOW "\033[1;33m"
+#define RESET "\033[0m" 
+
 #define MAX_ABELHAS 50 
 #define MAX_SENSORES 100 
 
@@ -45,8 +48,10 @@ int cadastrarAbelha(Abelha tipo_abelha[], int contadorAbelhas){
         tipo_abelha[contadorAbelhas].id = contadorAbelhas;
         printf("Nome Popular: ");
         scanf(" %39[^\n]",tipo_abelha[contadorAbelhas].nomePopular);
+        limparBuffer();
         printf("Nome Cientifico: ");
         scanf(" %49[^\n]",tipo_abelha[contadorAbelhas].nomeCientifico);
+        limparBuffer();
         do{
             printf("Escolha a Regiao:\n");
             printf("1 - Norte\n");
@@ -184,8 +189,10 @@ void alterarDadosAbelha(Abelha tipo_abelha[], int contadorAbelhas){
             printf("Alterando dados da Abelha ID %d:\n", idBusca);
             printf("Novo Nome Popular: ");
             scanf(" %39[^\n]",tipo_abelha[i].nomePopular);
+            limparBuffer();
             printf("Novo Nome Cientifico: ");
             scanf(" %49[^\n]",tipo_abelha[i].nomeCientifico);
+            limparBuffer();
             do{
                 printf("Escolha a Nova Regiao:\n");
                 printf("1 - Norte\n");
@@ -685,7 +692,7 @@ int main(){
     int idRemovida;
 
     do{
-        printf("===== SISTEMA BEE MONITOR =====\n");
+        printf(YELLOW "===== SISTEMA BEE MONITOR =====\n");
         printf("1. Gerenciar Abelhas\n");
         printf("2. Gerenciar Sensores\n");
         printf("3. Relatorios\n");
@@ -858,5 +865,6 @@ int main(){
                 printf("Opcao invalida! Tente novamente.\n");
         }
     }while(opcao != 4);
+    printf(RESET);
     return 0;
 }
