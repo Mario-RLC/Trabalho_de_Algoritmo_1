@@ -283,8 +283,6 @@ int pedirIdRemocaoAbelha(){
     if(certeza == 1){ 
         return idBusca;
     }else{
-        system("clear || cls");
-        printf("Remocao da Abelha cancelada.\n");
         return -1;
     }
 }
@@ -317,7 +315,6 @@ int removerSensoresPorAbelha(Sensor tipo_sensor[], int contadorSensores, int idR
 
 int removerAbelhaPorId(Abelha tipo_abelha[], int contadorAbelhas, int idRemovida){
     int i, j, k;
-    int encontrado = 0;
 
     for(i = 0; i < contadorAbelhas; i++){
         if(tipo_abelha[i].id == idRemovida){
@@ -326,21 +323,16 @@ int removerAbelhaPorId(Abelha tipo_abelha[], int contadorAbelhas, int idRemovida
                 tipo_abelha[j] = tipo_abelha[j + 1];
             }
             contadorAbelhas--;
-            encontrado = 1;
             break;
         }
     }
-    if(encontrado == 1){
-        //Renumera os ids das abelhas
-        for(k = 0; k < contadorAbelhas; k++){
-            tipo_abelha[k].id = k;
-        }
-        system("clear || cls");
-        printf("Abelha com o ID '%d' removida com sucesso.\n", idRemovida);
-    }else{
-        system("clear || cls");
-        printf("Abelha com o ID '%d' nao encontrada.\n", idRemovida);
+    //Renumera os ids das abelhas
+    for(k = 0; k < contadorAbelhas; k++){
+        tipo_abelha[k].id = k;
     }
+    system("clear || cls");
+    printf("Abelha com o ID '%d' removida com sucesso.\n", idRemovida);
+    
     return contadorAbelhas;
 }
 
@@ -763,9 +755,15 @@ int main(){
                             break;
                         case 10:
                             idRemovida = pedirIdRemocaoAbelha();
-                            if(idRemovida >= 0){
+                            if(idRemovida >= 0 && idRemovida < contadorAbelhas){
                                 contadorSensores = removerSensoresPorAbelha(tipo_sensor, contadorSensores, idRemovida);
                                 contadorAbelhas = removerAbelhaPorId(tipo_abelha, contadorAbelhas, idRemovida);
+                            }else if(idRemovida == -1){
+                                system("clear || cls");
+                                printf("Remocao da Abelha cancelada.\n");
+                            }else{
+                                system("clear || cls");
+                                printf("Abelha com o ID '%d' nao encontrada.\n", idRemovida);
                             }
                             pausar();
                             system("clear || cls");
