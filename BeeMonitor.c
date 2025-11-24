@@ -413,16 +413,28 @@ int cadastrarSensores(Sensor tipo_sensor[], int contadorSensores, Abelha tipo_ab
     }while(opcaoTipo < 1 || opcaoTipo > 3);
     
     do{
-        printf("Valor inicial: ");
-        if(scanf("%f", &tipo_sensor[contadorSensores].valor) != 1){
-            limparBuffer();
-            tipo_sensor[contadorSensores].valor = -1;
-            system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
-        }else if(tipo_sensor[contadorSensores].valor < 0){
-            system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
-        }
+        if(strcmp(tipo_sensor[contadorSensores].tipo, "Temperatura") == 0){
+            printf("Valor inicial: ");
+            if(scanf("%f", &tipo_sensor[contadorSensores].valor) != 1){
+                limparBuffer();
+                tipo_sensor[contadorSensores].valor = -1;
+                system("clear || cls");
+                printf("Valor invalido! Digite novamente!\n");
+            }else{
+                break;
+            }
+        }else{
+            printf("Valor inicial: ");
+            if(scanf("%f", &tipo_sensor[contadorSensores].valor) != 1){
+                limparBuffer();
+                tipo_sensor[contadorSensores].valor = -1;
+                system("clear || cls");
+                printf("Valor invalido! Digite novamente!\n");
+            }else if(tipo_sensor[contadorSensores].valor < 0){
+                system("clear || cls");
+                printf("Valor invalido! Digite novamente!\n");
+            }
+        }    
     }while(tipo_sensor[contadorSensores].valor < 0);
     tipo_sensor[contadorSensores].idAbelha = idAbelhaBusca;
     system("clear || cls");
