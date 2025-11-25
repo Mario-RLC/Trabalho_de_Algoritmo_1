@@ -4,6 +4,8 @@
 #include <ctype.h>
 
 #define YELLOW "\033[1;33m"
+#define GREEN "\033[1;32m"
+#define RED "\033[1;31m"
 #define RESET "\033[0m" 
 
 #define MAX_ABELHAS 50 
@@ -82,7 +84,7 @@ int cadastrarAbelha(Abelha tipo_abelha[], int contadorAbelhas){
                     break;
                 default:
                     system("clear || cls");
-                    printf("Regiao invalida! Digite Novamente!\n");
+                    printf(RED "Regiao invalida! Digite Novamente!\n" YELLOW);
             }
         }while(opcaoRegiao < 1 || opcaoRegiao > 5);
         do{
@@ -91,14 +93,14 @@ int cadastrarAbelha(Abelha tipo_abelha[], int contadorAbelhas){
                 limparBuffer(); 
                 tipo_abelha[contadorAbelhas].producaoMel = -1;
                 system("clear || cls");
-                printf("Valor invalido! Digite novamente!\n");
+                printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
             }else if(tipo_abelha[contadorAbelhas].producaoMel < 0){
                 system("clear || cls");
-                printf("Valor invalido! Digite novamente!\n");
+                printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
             }    
         }while(tipo_abelha[contadorAbelhas].producaoMel < 0);
         system("clear || cls");
-        printf("\nAbelha cadastrada com sucesso!\n");
+        printf(GREEN "\nAbelha cadastrada com sucesso!\n" YELLOW);
         return encontrado;
     } else {
         system("clear || cls");
@@ -161,7 +163,7 @@ void buscarPorNomePopular(Abelha tipo_abelha[], int contadorAbelhas){
         }
     }
     if(encontrado != 1){
-        printf("Abelha com o Nome Popular '%s' nao encontrada.\n", nomeBusca);
+        printf(RED "Abelha com o Nome Popular '%s' nao encontrada.\n" YELLOW, nomeBusca);
     }
 }
 
@@ -177,10 +179,10 @@ void alterarDadosAbelha(Abelha tipo_abelha[], int contadorAbelhas){
             limparBuffer();
             idBusca = -1;
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }else if(idBusca < 0){
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }
     }while(idBusca < 0);
 
@@ -223,7 +225,7 @@ void alterarDadosAbelha(Abelha tipo_abelha[], int contadorAbelhas){
                         break;
                     default:
                         system("clear || cls");
-                        printf("Regiao invalida! Digite Novamente!\n");
+                        printf(RED "Regiao invalida! Digite Novamente!\n" YELLOW);
                 }
             }while(opcaoRegiao < 1 || opcaoRegiao > 5);
             do{
@@ -232,20 +234,20 @@ void alterarDadosAbelha(Abelha tipo_abelha[], int contadorAbelhas){
                     limparBuffer(); 
                     tipo_abelha[i].producaoMel = -1;
                     system("clear || cls");
-                    printf("Valor invalido! Digite novamente!\n");
+                    printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
                 }else if(tipo_abelha[i].producaoMel < 0){
                     system("clear || cls");
-                    printf("Valor invalido! Digite novamente!\n");
+                    printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
                 }
             }while(tipo_abelha[i].producaoMel < 0);
             system("clear || cls");
-            printf("\nDados da Abelha atualizados com sucesso!\n");
+            printf(GREEN "\nDados da Abelha atualizados com sucesso!\n" YELLOW);
             encontrado = 1;
             break;
         }
     }
     if(encontrado != 1){
-        printf("Abelha com o ID '%d' nao encontrada.\n", idBusca);
+        printf(RED "Abelha com o ID '%d' nao encontrada.\n" YELLOW, idBusca);
     }
 }
 
@@ -261,10 +263,10 @@ int pedirIdRemocaoAbelha(){
             limparBuffer();
             idBusca = -1;
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }else if(idBusca < 0){
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }
     }while(idBusca < 0);
     do{
@@ -273,10 +275,10 @@ int pedirIdRemocaoAbelha(){
             limparBuffer();
             certeza = -1;
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }else if(certeza < 1 || certeza > 2){
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }
     }while(certeza < 1 || certeza > 2);
 
@@ -331,7 +333,7 @@ int removerAbelhaPorId(Abelha tipo_abelha[], int contadorAbelhas, int idRemovida
         tipo_abelha[k].id = k;
     }
     system("clear || cls");
-    printf("Abelha com o ID '%d' removida com sucesso.\n", idRemovida);
+    printf(GREEN "Abelha com o ID '%d' removida com sucesso.\n" YELLOW, idRemovida);
     
     return contadorAbelhas;
 }
@@ -359,10 +361,10 @@ int cadastrarSensores(Sensor tipo_sensor[], int contadorSensores, Abelha tipo_ab
             limparBuffer();
             idAbelhaBusca = -1;
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!.\n");
+            printf(RED "Valor invalido! Digite novamente!.\n" YELLOW);
         }else if(idAbelhaBusca < 0){
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!.\n");
+            printf(RED "Valor invalido! Digite novamente!.\n" YELLOW);
         }
     }while(idAbelhaBusca < 0);
     for(i = 0; i < contadorAbelhas; i++){
@@ -372,7 +374,7 @@ int cadastrarSensores(Sensor tipo_sensor[], int contadorSensores, Abelha tipo_ab
         }
     }
     if(encontrado == 0){
-        printf("Abelha com o ID '%d' nao encontrada. Nao foi possivel cadastrar o sensor.\n", idAbelhaBusca);
+        printf(RED "Abelha com o ID '%d' nao encontrada. Nao foi possivel cadastrar o sensor.\n" YELLOW, idAbelhaBusca);
         return encontrado;
     }
 
@@ -400,7 +402,7 @@ int cadastrarSensores(Sensor tipo_sensor[], int contadorSensores, Abelha tipo_ab
                 break;
             default:
                 system("clear || cls");
-                printf("Tipo invalido! Digite novamente!\n");
+                printf(RED "Tipo invalido! Digite novamente!\n" YELLOW);
         }
     }while(opcaoTipo < 1 || opcaoTipo > 3);
     
@@ -411,7 +413,7 @@ int cadastrarSensores(Sensor tipo_sensor[], int contadorSensores, Abelha tipo_ab
                 limparBuffer();
                 tipo_sensor[contadorSensores].valor = -1;
                 system("clear || cls");
-                printf("Valor invalido! Digite novamente!\n");
+                printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
             }else{
                 break;
             }
@@ -421,16 +423,16 @@ int cadastrarSensores(Sensor tipo_sensor[], int contadorSensores, Abelha tipo_ab
                 limparBuffer();
                 tipo_sensor[contadorSensores].valor = -1;
                 system("clear || cls");
-                printf("Valor invalido! Digite novamente!\n");
+                printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
             }else if(tipo_sensor[contadorSensores].valor < 0){
                 system("clear || cls");
-                printf("Valor invalido! Digite novamente!\n");
+                printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
             }
         }    
     }while(tipo_sensor[contadorSensores].valor < 0);
     tipo_sensor[contadorSensores].idAbelha = idAbelhaBusca;
     system("clear || cls");
-    printf("\nSensor cadastrado com sucesso!\n");
+    printf(GREEN "\nSensor cadastrado com sucesso!\n" YELLOW);
 
     return encontrado;
 }
@@ -463,10 +465,10 @@ void buscarPorIdAbelha(Sensor tipo_sensor[], int contadorSensores){
             limparBuffer();
             idAbelhaBusca = -1;
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }else if(idAbelhaBusca < 0){
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }
     }while(idAbelhaBusca < 0);
     printf("Sensores associados a Abelha ID %d:\n", idAbelhaBusca);
@@ -480,7 +482,7 @@ void buscarPorIdAbelha(Sensor tipo_sensor[], int contadorSensores){
         }
     }
     if(encontrado != 1){
-        printf("Nenhum sensor encontrado para a Abelha com ID '%d'.\n", idAbelhaBusca);
+        printf(RED "Nenhum sensor encontrado para a Abelha com ID '%d'.\n" YELLOW, idAbelhaBusca);
     }
 }
 
@@ -496,10 +498,10 @@ void alterarDadosSensores(Sensor tipo_sensor[], int contadorSensores){
             limparBuffer();
             idBusca = -1;
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }else if(idBusca < 0){
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }
     }while(idBusca < 0);
     for(i = 0; i < contadorSensores; i++){
@@ -527,7 +529,7 @@ void alterarDadosSensores(Sensor tipo_sensor[], int contadorSensores){
                         break;
                     default:
                         system("clear || cls");
-                        printf("Tipo invalido! Digite novamente!\n");
+                        printf(RED "Tipo invalido! Digite novamente!\n" YELLOW);
                 }
             }while(opcaoTipo < 1 || opcaoTipo > 3);
             do{
@@ -536,20 +538,20 @@ void alterarDadosSensores(Sensor tipo_sensor[], int contadorSensores){
                     limparBuffer();
                     tipo_sensor[i].valor = -1;
                     system("clear || cls");
-                    printf("Valor invalido! Digite novamente!\n");
+                    printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
                 }else if(tipo_sensor[i].valor < 0){
                     system("clear || cls");
-                    printf("Valor invalido! Digite novamente!\n");
+                    printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
                 }
             }while(tipo_sensor[i].valor < 0);
             system("clear || cls");
-            printf("\nDados do Sensor atualizados com sucesso!\n");
+            printf(GREEN "\nDados do Sensor atualizados com sucesso!\n" YELLOW);
             encontrado = 1;
             break;
         }
     }
     if(encontrado != 1){
-        printf("Sensor com o ID '%d' nao encontrado.\n", idBusca);
+        printf(RED "Sensor com o ID '%d' nao encontrado.\n" YELLOW, idBusca);
     }
 }
 
@@ -565,10 +567,10 @@ int removerSensores(Sensor tipo_sensor[], int contadorSensores){
             limparBuffer();
             idBusca = -1;
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }else if(idBusca < 0){
             system("clear || cls");
-            printf("Valor invalido! Digite novamente!\n");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }
     }while(idBusca < 0);
     do{
@@ -576,9 +578,12 @@ int removerSensores(Sensor tipo_sensor[], int contadorSensores){
         if(scanf("%d", &certeza) != 1){
             limparBuffer();
             certeza = -1;
+            system("clear || cls");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
+        }else if(certeza < 1 || certeza > 2){
+            system("clear || cls");
+            printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
         }
-        system("clear || cls");
-        printf("Valor invalido! Digite novamente!\n");
     }while(certeza < 1 || certeza > 2);
     if(certeza == 1){
         for(i = 0; i < contadorSensores; i++){
@@ -587,20 +592,21 @@ int removerSensores(Sensor tipo_sensor[], int contadorSensores){
                     tipo_sensor[j] = tipo_sensor[j + 1];
                 }
                 contadorSensores--;
-            for(k = 0; k < contadorSensores; k++){
-                tipo_sensor[k].id = k;
+                for(k = 0; k < contadorSensores; k++){
+                    tipo_sensor[k].id = k;
+                }
+                system("clear || cls");
+                printf(GREEN "\nSensor removido com sucesso!\n" YELLOW);
+                encontrado = 1;
+                break;
             }
-            system("clear || cls");
-            printf("\nSensor removido com sucesso!\n");
-            encontrado = 1;
-            break;
-            }else if(encontrado != 1){
-                printf("Sensor com o ID '%d' nao encontrado.\n", idBusca);
-            }
+        }
+        if(encontrado != 1){
+                printf(RED "Sensor com o ID '%d' nao encontrado.\n" YELLOW, idBusca);
         }
     }else{
         system("clear || cls");
-        printf("Remocao do Sensor cancelada.\n");
+        printf(GREEN "Remocao do Sensor cancelada.\n" YELLOW);
     }
     return contadorSensores;
 }
@@ -705,7 +711,7 @@ int main(){
         if(scanf("%d", &opcao) != 1){
             limparBuffer(); 
             opcao = -1;
-            printf("Opcao invalida! Tente novamente.\n");
+            printf(RED "Opcao invalida! Tente novamente.\n" YELLOW);
         }
         
         system("clear || cls");
@@ -724,7 +730,7 @@ int main(){
                     if(scanf("%d", &opcao) != 1){
                         limparBuffer(); 
                         opcao = -1;
-                        printf("Opcao invalida! Tente novamente.\n");
+                        printf(RED "Opcao invalida! Tente novamente.\n" YELLOW);
                     }
 
                     system("clear || cls");
@@ -760,10 +766,9 @@ int main(){
                                 contadorAbelhas = removerAbelhaPorId(tipo_abelha, contadorAbelhas, idRemovida);
                             }else if(idRemovida == -1){
                                 system("clear || cls");
-                                printf("Remocao da Abelha cancelada.\n");
+                                printf(GREEN "Remocao da Abelha cancelada.\n" YELLOW);
                             }else{
-                                system("clear || cls");
-                                printf("Abelha com o ID '%d' nao encontrada.\n", idRemovida);
+                                printf(RED "Abelha com o ID '%d' nao encontrada.\n" YELLOW, idRemovida);
                             }
                             pausar();
                             system("clear || cls");
@@ -771,7 +776,7 @@ int main(){
                         case 11:
                             break;
                         default:
-                            printf("Opcao invalida! Tente novamente.\n");        
+                            printf(RED "Opcao invalida! Tente novamente.\n" YELLOW);        
                     }
                 }while(opcao != 11);
                 break;    
@@ -788,7 +793,7 @@ int main(){
                     if(scanf("%d", &opcao) != 1){
                         limparBuffer(); 
                         opcao = -1;
-                        printf("Opcao invalida! Tente novamente.\n");
+                        printf(RED "Opcao invalida! Tente novamente.\n" YELLOW);
                     }
 
                     system("clear || cls");
@@ -825,7 +830,7 @@ int main(){
                         case 11:
                             break;
                         default:
-                            printf("Opcao invalida! Tente novamente.\n");        
+                            printf(RED "Opcao invalida! Tente novamente.\n" YELLOW);        
                     }
                 }while(opcao != 11);
                 break;
@@ -840,7 +845,7 @@ int main(){
                     if(scanf("%d", &opcao) != 1){
                         limparBuffer(); 
                         opcao = -1;
-                        printf("Opcao invalida! Tente novamente.\n");
+                        printf(RED "Opcao invalida! Tente novamente.\n" YELLOW);
                     }
 
                     system("clear || cls");
@@ -864,7 +869,7 @@ int main(){
                         case 7:
                             break;
                         default:
-                            printf("Opcao invalida! Tente novamente.\n");        
+                            printf(RED "Opcao invalida! Tente novamente.\n" YELLOW);        
                     }
                 }while(opcao != 7);
                 break;
@@ -872,7 +877,7 @@ int main(){
                 printf("SISTEMA ENCERRADO!\n");
                 break;
             default:
-                printf("Opcao invalida! Tente novamente.\n");
+                printf(RED "Opcao invalida! Tente novamente.\n" YELLOW);
         }
     }while(opcao != 4);
     printf(RESET);
