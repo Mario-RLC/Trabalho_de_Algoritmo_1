@@ -113,7 +113,7 @@ void listarAbelhas(Abelha tipo_abelha[], int contadorAbelhas){
     int i;
 
     if(contadorAbelhas == 0){
-        printf("Nenhuma abelha cadastrada.\n");
+        printf("Nenhuma abelha cadastrada para listar.\n");
         return;
     }
     printf("Lista de Abelhas Cadastradas:\n");
@@ -134,6 +134,11 @@ void buscarPorNomePopular(Abelha tipo_abelha[], int contadorAbelhas){
     int encontrado = 0;
     int lenBusca, lenNome;
     int i, j, k;
+
+    if(contadorAbelhas == 0){
+        printf("Nenhuma abelha cadastrada para busca.\n");
+        return;
+    }
 
     printf("Digite o Nome Popular da Abelha para busca: ");
     scanf(" %39[^\n]", nomeBusca);
@@ -172,6 +177,11 @@ void alterarDadosAbelha(Abelha tipo_abelha[], int contadorAbelhas){
     int encontrado = 0;
     int opcaoRegiao;
     int i;
+
+    if(contadorAbelhas == 0){
+        printf("Nenhuma abelha cadastrada para alterar dados.\n");
+        return;
+    }
 
     do{
         printf("Digite o ID da Abelha para alterar dados: ");
@@ -253,9 +263,13 @@ void alterarDadosAbelha(Abelha tipo_abelha[], int contadorAbelhas){
 
 // Funções para remover abelhas e sensores associados
 
-int pedirIdRemocaoAbelha(){
+int pedirIdRemocaoAbelha(int contadorAbelhas){
     int idBusca;
     int certeza;
+
+    if(contadorAbelhas == 0){
+        return -2; 
+    }
 
     do{
         printf("Digite o ID da Abelha para remover: ");
@@ -454,10 +468,18 @@ void listarSensores(Sensor tipo_sensor[], int contadorSensores){
     }
 }
 
-void buscarPorIdAbelha(Sensor tipo_sensor[], int contadorSensores){
+void buscarPorIdAbelha(Sensor tipo_sensor[], int contadorSensores, int contadorAbelhas){
     int idAbelhaBusca;
     int encontrado = 0;
     int i;
+
+    if(contadorAbelhas == 0){
+        printf("Nenhuma abelha cadastrada para busca.\n");
+        return;
+    }else if(contadorSensores == 0){
+        printf("Nenhum sensor cadastrado para busca.\n");
+        return;
+    }
 
     do{
         printf("Digite o ID da Abelha para buscar sensores associados: ");
@@ -491,6 +513,11 @@ void alterarDadosSensores(Sensor tipo_sensor[], int contadorSensores){
     int encontrado = 0;
     int opcaoTipo;
     int i;
+
+    if(contadorSensores == 0){
+        printf("Nenhum sensor cadastrado para alterar dados.\n");
+        return;
+    }
 
     do{
         printf("Digite o ID do Sensor para alterar dados: ");
@@ -561,6 +588,11 @@ int removerSensores(Sensor tipo_sensor[], int contadorSensores){
     int certeza;
     int i, j, k;
 
+    if(contadorSensores == 0){
+        printf("Nenhum sensor cadastrado para remover.\n");
+        return contadorSensores;
+    }
+
     do{
         printf("Digite o ID do Sensor para remover: ");
         if(scanf("%d", &idBusca) != 1){
@@ -619,7 +651,7 @@ void relatorioProducaoMel(Abelha tipo_abelha[], int contadorAbelhas){
     float mediaProducao;
 
     if(contadorAbelhas == 0){
-        printf("Nenhuma abelha cadastrada para gerar relatorio.\n");
+        printf("Nenhuma abelha cadastrada para gerar relatorio de producao de mel.\n");
         return;
     }
 
@@ -637,7 +669,7 @@ void relatorioMediaTemperatura(Sensor tipo_sensor[], int contadorSensores){
     float mediaTemperatura;
 
     if(contadorSensores == 0){
-        printf("Nenhum sensor cadastrado para gerar relatorio.\n");
+        printf("Nenhum sensor cadastrado para gerar relatorio de media de temperatura.\n");
         return;
     }
 
@@ -662,6 +694,11 @@ void relatorioQuantidadeAbelhasPorRegiao(Abelha tipo_abelha[], int contadorAbelh
     int contadorRegiaoSE = 0;
     int contadorRegiaoS = 0;
     int i;
+
+    if(contadorAbelhas == 0){
+        printf("Nenhuma abelha cadastrada para gerar relatorio de quantidade por regiao.\n");
+        return;
+    }
 
     for(i = 0; i < contadorAbelhas; i++){
         if(strcmp(tipo_abelha[i].regiao, "Norte") == 0){
@@ -692,7 +729,6 @@ int main(){
     int contadorAbelhas = 0;
     int contadorSensores = 0;
 
-    // Variável para opções do menu
     int opcao;
 
     // Variável para verificar se incrementa o contador de abelhas e sensores
@@ -760,15 +796,17 @@ int main(){
                             system("clear || cls");
                             break;
                         case 10:
-                            idRemovida = pedirIdRemocaoAbelha();
+                            idRemovida = pedirIdRemocaoAbelha(contadorAbelhas);
                             if(idRemovida >= 0 && idRemovida < contadorAbelhas){
                                 contadorSensores = removerSensoresPorAbelha(tipo_sensor, contadorSensores, idRemovida);
                                 contadorAbelhas = removerAbelhaPorId(tipo_abelha, contadorAbelhas, idRemovida);
                             }else if(idRemovida == -1){
                                 system("clear || cls");
                                 printf(GREEN "Remocao da Abelha cancelada.\n" YELLOW);
-                            }else{
+                            }else if(idRemovida >= contadorAbelhas){
                                 printf(RED "Abelha com o ID '%d' nao encontrada.\n" YELLOW, idRemovida);
+                            }else{
+                                printf("Nenhuma abelha cadastrada para remover.\n");
                             }
                             pausar();
                             system("clear || cls");
@@ -813,7 +851,7 @@ int main(){
                             system("clear || cls");
                             break;
                         case 8:
-                            buscarPorIdAbelha(tipo_sensor, contadorSensores);
+                            buscarPorIdAbelha(tipo_sensor, contadorSensores, contadorAbelhas);
                             pausar();
                             system("clear || cls");
                             break;
