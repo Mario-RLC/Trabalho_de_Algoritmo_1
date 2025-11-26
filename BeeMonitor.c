@@ -309,21 +309,17 @@ int removerSensoresPorAbelha(Sensor tipo_sensor[], int contadorSensores, int idR
 
     while(i < contadorSensores){
         if(tipo_sensor[i].idAbelha == idRemovida){
-            //Vai remover o sensor da posição
             for(j = i; j < contadorSensores - 1; j++){
                 tipo_sensor[j] = tipo_sensor[j + 1];
             }
             contadorSensores--;
-            //Nao incrementa i para verificar o novo elemento que pegou a posição
         } else {
             if(tipo_sensor[i].idAbelha > idRemovida){
-                //Vai acompanhar a mudança do id da abelha
                 tipo_sensor[i].idAbelha--; 
             }
             i++;
         }
     }
-    //Renumera os ids dos sensores
     for(k = 0; k < contadorSensores; k++){
         tipo_sensor[k].id = k;
     }
@@ -335,7 +331,6 @@ int removerAbelhaPorId(Abelha tipo_abelha[], int contadorAbelhas, int idRemovida
 
     for(i = 0; i < contadorAbelhas; i++){
         if(tipo_abelha[i].id == idRemovida){
-            //Vai remover a abelha da posição
             for(j = i; j < contadorAbelhas - 1; j++){
                 tipo_abelha[j] = tipo_abelha[j + 1];
             }
@@ -343,7 +338,6 @@ int removerAbelhaPorId(Abelha tipo_abelha[], int contadorAbelhas, int idRemovida
             break;
         }
     }
-    //Renumera os ids das abelhas
     for(k = 0; k < contadorAbelhas; k++){
         tipo_abelha[k].id = k;
     }
@@ -732,10 +726,8 @@ int main(){
 
     int opcao;
 
-    // Variável para verificar se incrementa o contador de abelhas e sensores
     int encontradoCadastrar;
 
-    // Variável para remoção de abelha e sensores associados
     int idRemovida;
 
     do{
