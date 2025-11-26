@@ -142,7 +142,6 @@ void buscarPorNomePopular(Abelha tipo_abelha[], int contadorAbelhas){
 
     printf("Digite o Nome Popular da Abelha para busca: ");
     scanf(" %39[^\n]", nomeBusca); 
-    limparBuffer();
 
     lenBusca = strlen(nomeBusca);
     for(i = 0; i < lenBusca && i < 40 - 1; i++){

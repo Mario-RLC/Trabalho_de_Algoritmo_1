@@ -1,5 +1,5 @@
 Trabalho: Bee Monitor C. 
-Integrantes: Davi Antony, Ian Moura, Jonas Sousa, Mário Rafael e Vitor Hugo.
+Integrantes: Davi Antony, Ian Moura, Jonas Sousa, Mário Rafael e Victor Hugo.
 Disciplina: Algoritimos e Programação I.
 Professora: Dra. Alcilene Dalília de Sousa.
 Descrição: Sistema de cadastro e monitoramento de abelhas sem ferrão e
