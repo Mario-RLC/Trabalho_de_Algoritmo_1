@@ -554,16 +554,28 @@ void alterarDadosSensores(Sensor tipo_sensor[], int contadorSensores){
                 }
             }while(opcaoTipo < 1 || opcaoTipo > 3);
             do{
-                printf("Novo Valor inicial: ");
-                if(scanf("%f", &tipo_sensor[i].valor) != 1){
-                    limparBuffer();
-                    tipo_sensor[i].valor = -1;
-                    system("clear || cls");
-                    printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
-                }else if(tipo_sensor[i].valor < 0){
-                    system("clear || cls");
-                    printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
-                }
+                if(strcmp(tipo_sensor[i].tipo, "Temperatura") == 0){
+                    printf("Valor inicial: ");
+                    if(scanf("%f", &tipo_sensor[i].valor) != 1){
+                        limparBuffer();
+                        tipo_sensor[i].valor = -1;
+                        system("clear || cls");
+                        printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
+                    }else{
+                        break;
+                    }
+                }else{
+                    printf("Valor inicial: ");
+                    if(scanf("%f", &tipo_sensor[i].valor) != 1){
+                        limparBuffer();
+                        tipo_sensor[i].valor = -1;
+                        system("clear || cls");
+                        printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
+                    }else if(tipo_sensor[i].valor < 0){
+                        system("clear || cls");
+                        printf(RED "Valor invalido! Digite novamente!\n" YELLOW);
+                    }
+                }    
             }while(tipo_sensor[i].valor < 0);
             system("clear || cls");
             printf(GREEN "\nDados do Sensor atualizados com sucesso!\n" YELLOW);
